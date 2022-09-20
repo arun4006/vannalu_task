@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+public class Author
+{
+    public string? Name;
+    public bool isCompleted;
+    public DateTime Completed_time;
+    bool task_isCompleted;
+    List<Author> authors = new List<Author> { };
+    public void addTodo()
+    {  
+        try
+        {
+            String? task_name, task_status, task_Completed_time;
+            Console.WriteLine("Enter todo task name");
+             task_name = Console.ReadLine();
+            Console.WriteLine("Enter completed status  (yes or no)");
+             task_status = Console.ReadLine().ToLower();
+            if (task_status == "yes")
+            {
+                task_isCompleted = true;
+            }
+            else if (task_status == "no")
+            {
+                task_isCompleted = false;
+            }
+            else
+            {
+                Console.WriteLine("task status must be yes or no");
+                return;
+            }
+            Console.WriteLine("Enter completed date (yyyy,mm,dd) format");
+             task_Completed_time = Console.ReadLine();
+            if (String.IsNullOrWhiteSpace(task_name)  ||  String.IsNullOrWhiteSpace(task_Completed_time))
+            {
+                Console.WriteLine("input should not empty");
+                return;
+            }
+            DateTime dateValue = DateTime.Parse(task_Completed_time);
+            authors.Add(
+             new Author
+             {
+                 Name = task_name,
+                 isCompleted = task_isCompleted,
+                 Completed_time = dateValue
+             });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: {0}", ex.Message);
+        }
+    }
+    public void listTodo()
+    {
+        foreach (Author author in authors)
+        {
+            Console.WriteLine($"Author: {author.Name},  isCompleted:{author.isCompleted},      Completed_time:{author.Completed_time}");
+            Console.WriteLine();
+        }
+    }
+    static void Main(string[] args)
+    {
+            Author a = new Author();
+        string? input;
+        while (true)
+        {
+            Console.WriteLine("select any key:  add or list ");
+             input = Console.ReadLine().ToLower();
+            if (input == null || input.CompareTo("quit") == 0)
+                break;
+            switch (input)
+            {
+                case "add":
+                    a.addTodo();
+                    break;
+                case "list":
+                    a.listTodo();
+                    break;
+            }
+        }
+    }
+}
