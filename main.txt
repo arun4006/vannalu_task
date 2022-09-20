@@ -58,6 +58,12 @@ public class Author
             Console.WriteLine();
         }
     }
+    public void DeleteTodo()
+    {
+        
+            Console.WriteLine($Deleted");
+           
+    }
     static void Main(string[] args)
     {
             Author a = new Author();
